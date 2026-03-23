@@ -42,8 +42,7 @@ pipeline {
 
                     bat 'git commit -m "Auto copied files from Kapil repo" || exit 0'
 
-                    bat 'git push https://%USER%:%TOKEN%@github.com/VanshMShah/I066_APD_Lab8.git HEAD:master'
-
+                    bat 'git push https://%USER%:%TOKEN%@github.com/DhruMarwal/Jenkins_.git HEAD:main'
                 }
 
             }
