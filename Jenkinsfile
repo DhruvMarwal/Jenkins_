@@ -1,9 +1,7 @@
 pipeline {
-
     agent any
-
     stages {
-
+        
         stage('Clean Source Repo') {
             steps {
                 bat '''
@@ -35,10 +33,8 @@ pipeline {
                     bat '''
                     git config user.email "dhruvmarwal304@gmail.com"
                     git config user.name "DhruvMarwal"
-
                     git add .
                     git commit -m "Auto copied files from Kapil repo" || exit 0
-
                     git push https://%USER%:%TOKEN%@github.com/DhruvMarwal/Jenkins_.git HEAD:main
                     '''
                 }
@@ -62,6 +58,5 @@ pipeline {
                 bat 'Deploy.bat'
             }
         }
-
     }
 }
