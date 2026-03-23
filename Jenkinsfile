@@ -1,8 +1,9 @@
 pipeline {
     agent any
- 
+    
     stages {
-        stage('Clean Kapil Repo') {
+        
+        stage('Clean Source Repo') {
             steps {
                 bat '''
                 if exist Jenkins_pipeline (
@@ -11,13 +12,13 @@ pipeline {
                 '''
             }
         }
- 
-        stage('Clone Kapil Repo') {
+
+        stage('Clone Source Repo') {
             steps {
                 bat 'git clone https://github.com/kapilrahtor/Jenkins_pipeline.git'
             }
         }
- 
+
         stage('Copy Files to My Repo') {
             steps {
                 bat '''
@@ -25,61 +26,38 @@ pipeline {
                 if %ERRORLEVEL% LEQ 7 exit /B 0
                 '''
             }
-
         }
- 
-        stage('Commit & Push to My Repo') {
 
+        stage('Commit & Push') {
             steps {
-
-                withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'USER', passwordVariable: 'TOKEN')]) {
-
-                    bat 'git config user.email "jenkins@lab.com"'
-
-                    bat 'git config user.name "Jenkins"'
-
-                    bat 'git add .'
-
-                    bat 'git commit -m "Auto copied files from Kapil repo" || exit 0'
-
-                    bat 'git push https://%USER%:%TOKEN%@github.com/DhruMarwal/Jenkins_.git HEAD:main'
+                withCredentials([usernamePassword(credentialsId: 'githubtoken', usernameVariable: 'USER', passwordVariable: 'TOKEN')]) {
+                    bat '''
+                    git config user.email "your-email@example.com"
+                    git config user.name "DhruvMarwal"
+                    git add .
+                    git commit -m "Auto copied files from Kapil repo" || exit 0
+                    git push https://%USER%:%TOKEN%@github.com/DhruvMarwal/Jenkins_.git HEAD:main
+                    '''
                 }
-
             }
-
         }
- 
+
         stage('Build') {
-
             steps {
-
                 bat 'Build.bat'
-
             }
-
         }
- 
+
         stage('Test') {
-
             steps {
-
                 bat 'Test.bat'
-
             }
-
         }
- 
+
         stage('Deploy') {
-
             steps {
-
                 bat 'Deploy.bat'
-
             }
-
         }
- 
     }
-
 }
- 
