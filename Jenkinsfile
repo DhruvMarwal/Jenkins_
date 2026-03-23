@@ -32,7 +32,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'githubtoken', usernameVariable: 'USER', passwordVariable: 'TOKEN')]) {
                     bat '''
-                    git config user.email "your-email@example.com"
+                    git config user.email "dhruvmarwal304@gmail.com"
                     git config user.name "DhruvMarwal"
                     git add .
                     git commit -m "Auto copied files from Kapil repo" || exit 0
